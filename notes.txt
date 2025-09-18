@@ -1,0 +1,2 @@
+need to improve chunking for optimization and adj pdf parsing for less structuired pdfs
+speed seems good for everything prechunking so far and 0 cost :P

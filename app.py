@@ -6,6 +6,7 @@ from typing import Dict, Any
 from input.pdf_extractor import PDFExtractor
 from input.normalizer import TextNormalizer
 from input.summary_generator import SummaryGenerator
+from chunking.chunker import Chunker
 
 class PDFProcessor:
     """
@@ -17,6 +18,11 @@ class PDFProcessor:
         self.pdf_extractor = PDFExtractor()
         self.normalizer = TextNormalizer()
         self.summary_generator = SummaryGenerator()
+        self.chunker = Chunker()
+        
+        # Create loggingFiles directory
+        self.logging_dir = Path("loggingFiles")
+        self.logging_dir.mkdir(exist_ok=True)
     
     def process_pdf(self, pdf_path: str) -> Dict[str, Any]:
         """
@@ -39,13 +45,17 @@ class PDFProcessor:
             extraction_summary, normalized_pages, self.normalizer
         )
         
+        # Chunk the text
+        chunking_results = self.chunker.chunk_pages(normalized_pages)
+        
         print(f"Processing complete. Processed {len(normalized_pages)} pages")
         
         return {
             'pdf_path': pdf_path,
             'extraction_summary': extraction_summary,
             'final_summary': final_summary,
-            'pages': normalized_pages
+            'pages': normalized_pages,
+            'chunking_results': chunking_results
         }
     
     def _normalize_pages(self, raw_pages: list) -> list:
@@ -79,7 +89,7 @@ class PDFProcessor:
     
     def save_results(self, results: Dict[str, Any], output_dir: str = "."):
         """
-        Save only the essential files: normalized text and summary.
+        Save the essential files: normalized text, summary, chunked text, and chunk metadata.
         """
         output_path = Path(output_dir)
         pdf_name = Path(results['pdf_path']).stem
@@ -92,21 +102,40 @@ class PDFProcessor:
                 f.write(page['normalized_text'])
                 f.write("\n\n")
         
-        # Save summary only
+        # Save summary
         summary_file = output_path / f"{pdf_name}_summary.json"
         with open(summary_file, 'w', encoding='utf-8') as f:
             json.dump(results['final_summary'], f, indent=2, ensure_ascii=False)
         
+        # Save chunked text
+        chunked_file = output_path / f"{pdf_name}_chunked.txt"
+        chunked_text = self.chunker.format_chunks_for_output(
+            results['chunking_results']['chunks'],
+            results['chunking_results']['metadata']
+        )
+        with open(chunked_file, 'w', encoding='utf-8') as f:
+            f.write(chunked_text)
+        
+        # Save chunk metadata
+        chunks_metadata_file = output_path / f"{pdf_name}_chunks_metadata.json"
+        with open(chunks_metadata_file, 'w', encoding='utf-8') as f:
+            json.dump({
+                'chunks': results['chunking_results']['metadata'],
+                'summary': results['chunking_results']['summary']
+            }, f, indent=2, ensure_ascii=False)
+        
         print(f"Results saved to:")
-        print(f"  - Text: {text_file}")
+        print(f"  - Normalized text: {text_file}")
         print(f"  - Summary: {summary_file}")
+        print(f"  - Chunked text: {chunked_file}")
+        print(f"  - Chunk metadata: {chunks_metadata_file}")
 
 def main():
     """
     Main function to run the PDF processor.
     """
     # Configuration
-    pdf_path = "Starbucks Fiscal 2024 Results and Growth Outlook.pdf"
+    pdf_path = "exampleStarbucks.pdf"
     
     try:
         # Initialize processor
