@@ -1,0 +1,221 @@
+{
+  "chunks": [
+    {
+      "chunk_id": 1,
+      "chunk_index": 0,
+      "total_chunks": 17,
+      "source_page": 1,
+      "start_position": 0,
+      "end_position": 2965,
+      "text_length": 2965,
+      "token_count": 783,
+      "created_at": "2025-09-18T20:09:21.290880",
+      "chunk_text_preview": "Starbucks Corporation: Earnings and Growth Analysis by Market (2018–2024) Global Overview (2018–2024..."
+    },
+    {
+      "chunk_id": 2,
+      "chunk_index": 1,
+      "total_chunks": 17,
+      "source_page": 2,
+      "start_position": 2321,
+      "end_position": 6376,
+      "text_length": 4055,
+      "token_count": 910,
+      "created_at": "2025-09-18T20:09:21.292023",
+      "chunk_text_preview": "S.company- operated stores were via the app 14.Globally, Starbucks has set a goal of roughly doublin..."
+    },
+    {
+      "chunk_id": 3,
+      "chunk_index": 2,
+      "total_chunks": 17,
+      "source_page": 3,
+      "start_position": 5842,
+      "end_position": 9710,
+      "text_length": 3868,
+      "token_count": 999,
+      "created_at": "2025-09-18T20:09:21.293011",
+      "chunk_text_preview": "European markets face competition from Costa (now part of Coca-Cola), Nestlé’s Nespresso outlets, an..."
+    },
+    {
+      "chunk_id": 4,
+      "chunk_index": 3,
+      "total_chunks": 17,
+      "source_page": 3,
+      "start_position": 8987,
+      "end_position": 10389,
+      "text_length": 1402,
+      "token_count": 281,
+      "created_at": "2025-09-18T20:09:21.293686",
+      "chunk_text_preview": "- Upside: If the economy outperforms and Starbucks succeeds in reversing traffic declines (through i..."
+    },
+    {
+      "chunk_id": 5,
+      "chunk_index": 4,
+      "total_chunks": 17,
+      "source_page": 4,
+      "start_position": 9759,
+      "end_position": 13834,
+      "text_length": 4075,
+      "token_count": 960,
+      "created_at": "2025-09-18T20:09:21.294859",
+      "chunk_text_preview": "- Risks: Key risks include a U.S.economic slowdown, intensified competition (e.g.value offerings fro..."
+    },
+    {
+      "chunk_id": 6,
+      "chunk_index": 5,
+      "total_chunks": 17,
+      "source_page": 4,
+      "start_position": 13176,
+      "end_position": 14211,
+      "text_length": 1035,
+      "token_count": 228,
+      "created_at": "2025-09-18T20:09:21.295261",
+      "chunk_text_preview": "Key drivers are rising incomes and continued urbanization. - Upside: In a favorable scenario (rapid ..."
+    },
+    {
+      "chunk_id": 7,
+      "chunk_index": 6,
+      "total_chunks": 17,
+      "source_page": 5,
+      "start_position": 13681,
+      "end_position": 18078,
+      "text_length": 4397,
+      "token_count": 981,
+      "created_at": "2025-09-18T20:09:21.296116",
+      "chunk_text_preview": "Intense competition and price sensitivity (see below) might cap comps near 0–3%.Store growth might s..."
+    },
+    {
+      "chunk_id": 8,
+      "chunk_index": 7,
+      "total_chunks": 17,
+      "source_page": 6,
+      "start_position": 17432,
+      "end_position": 21380,
+      "text_length": 3948,
+      "token_count": 886,
+      "created_at": "2025-09-18T20:09:21.297014",
+      "chunk_text_preview": "Competition from global and local brands (Tully’s Japan, Doutor, local cafes) remains intense.Curren..."
+    },
+    {
+      "chunk_id": 9,
+      "chunk_index": 8,
+      "total_chunks": 17,
+      "source_page": 7,
+      "start_position": 20764,
+      "end_position": 24900,
+      "text_length": 4136,
+      "token_count": 978,
+      "created_at": "2025-09-18T20:09:21.298105",
+      "chunk_text_preview": "Drive-thru and hybrid formats continue to roll out.To appeal to Canadian consumers, Starbucks offers..."
+    },
+    {
+      "chunk_id": 10,
+      "chunk_index": 9,
+      "total_chunks": 17,
+      "source_page": 7,
+      "start_position": 24410,
+      "end_position": 25074,
+      "text_length": 664,
+      "token_count": 173,
+      "created_at": "2025-09-18T20:09:21.298446",
+      "chunk_text_preview": "As of end-2024, Starbucks Korea operated 2,009 stores 46 , surpassing Japan. Sales have surged: Star..."
+    },
+    {
+      "chunk_id": 11,
+      "chunk_index": 10,
+      "total_chunks": 17,
+      "source_page": 8,
+      "start_position": 24637,
+      "end_position": 28767,
+      "text_length": 4130,
+      "token_count": 963,
+      "created_at": "2025-09-18T20:09:21.299230",
+      "chunk_text_preview": "2 billion) 47.However, profitability has compressed; reported operating margin fell from ~10% in 202..."
+    },
+    {
+      "chunk_id": 12,
+      "chunk_index": 11,
+      "total_chunks": 17,
+      "source_page": 9,
+      "start_position": 28206,
+      "end_position": 32098,
+      "text_length": 3892,
+      "token_count": 847,
+      "created_at": "2025-09-18T20:09:21.299937",
+      "chunk_text_preview": "Store Network: Starbucks Mexico is nearly all licensed/franchised (no company-operated stores).The f..."
+    },
+    {
+      "chunk_id": 13,
+      "chunk_index": 12,
+      "total_chunks": 17,
+      "source_page": 10,
+      "start_position": 31395,
+      "end_position": 35196,
+      "text_length": 3801,
+      "token_count": 839,
+      "created_at": "2025-09-18T20:09:21.300858",
+      "chunk_text_preview": "- Risks: High density of competitors (local specialty cafes) and a relatively plateaued market.Excha..."
+    },
+    {
+      "chunk_id": 14,
+      "chunk_index": 13,
+      "total_chunks": 17,
+      "source_page": 11,
+      "start_position": 34755,
+      "end_position": 37766,
+      "text_length": 3011,
+      "token_count": 760,
+      "created_at": "2025-09-18T20:09:21.301529",
+      "chunk_text_preview": "Assumptions include moderate GDP growth (2%), mild inflation, and ongoing digital adoption.Risks inc..."
+    },
+    {
+      "chunk_id": 15,
+      "chunk_index": 14,
+      "total_chunks": 17,
+      "source_page": 12,
+      "start_position": 37178,
+      "end_position": 41251,
+      "text_length": 4073,
+      "token_count": 866,
+      "created_at": "2025-09-18T20:09:21.302348",
+      "chunk_text_preview": "Global Strategic and Operational Initiatives Across markets, Starbucks has rolled out consistent str..."
+    },
+    {
+      "chunk_id": 16,
+      "chunk_index": 15,
+      "total_chunks": 17,
+      "source_page": 13,
+      "start_position": 40721,
+      "end_position": 42718,
+      "text_length": 1997,
+      "token_count": 420,
+      "created_at": "2025-09-18T20:09:21.303169",
+      "chunk_text_preview": "g.sustainable cup discount expanded to Canada in 2024).Conclusion From 2018 through 2024, Starbucks ..."
+    },
+    {
+      "chunk_id": 17,
+      "chunk_index": 16,
+      "total_chunks": 17,
+      "source_page": 14,
+      "start_position": 41970,
+      "end_position": 45638,
+      "text_length": 3668,
+      "token_count": 967,
+      "created_at": "2025-09-18T20:09:21.303982",
+      "chunk_text_preview": "Downside risks include economic slowdowns or fierce local competition that could flatten or contract..."
+    }
+  ],
+  "summary": {
+    "chunking_summary": {
+      "total_chunks": 17,
+      "total_tokens": 12841,
+      "total_characters": 55117,
+      "chunk_size": 1000,
+      "overlap_size": 150,
+      "source_pages": 14,
+      "average_tokens_per_chunk": 755.3529411764706,
+      "average_characters_per_chunk": 3242.176470588235,
+      "created_at": "2025-09-18T20:09:21.304312"
+    }
+  }
+}

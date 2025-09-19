@@ -1,12 +1,13 @@
 import json
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 # Import our helper modules
 from input.pdf_extractor import PDFExtractor
 from input.normalizer import TextNormalizer
 from input.summary_generator import SummaryGenerator
 from chunking.chunker import Chunker
+from embeddings.embedding_processor import EmbeddingProcessor
 
 class PDFProcessor:
     """
@@ -19,10 +20,7 @@ class PDFProcessor:
         self.normalizer = TextNormalizer()
         self.summary_generator = SummaryGenerator()
         self.chunker = Chunker()
-        
-        # Create loggingFiles directory
-        self.logging_dir = Path("loggingFiles")
-        self.logging_dir.mkdir(exist_ok=True)
+        self.embedding_processor = EmbeddingProcessor()
     
     def process_pdf(self, pdf_path: str) -> Dict[str, Any]:
         """
@@ -48,6 +46,14 @@ class PDFProcessor:
         # Chunk the text
         chunking_results = self.chunker.chunk_pages(normalized_pages)
         
+        # Process embeddings
+        print("Generating embeddings...")
+        pdf_name = Path(pdf_path).stem
+        
+        embedding_result = self.embedding_processor.process_pdf_embeddings(
+            chunking_results['metadata'], pdf_name
+        )
+        
         print(f"Processing complete. Processed {len(normalized_pages)} pages")
         
         return {
@@ -55,7 +61,8 @@ class PDFProcessor:
             'extraction_summary': extraction_summary,
             'final_summary': final_summary,
             'pages': normalized_pages,
-            'chunking_results': chunking_results
+            'chunking_results': chunking_results,
+            'embedding_results': embedding_result
         }
     
     def _normalize_pages(self, raw_pages: list) -> list:

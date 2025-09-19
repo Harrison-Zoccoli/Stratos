@@ -1,0 +1,26 @@
+{
+  "total_pages": 14,
+  "total_raw_characters": 45478,
+  "total_normalized_characters": 45678,
+  "total_words": 6698,
+  "total_estimated_tokens": 8701,
+  "compression_ratio": 1.0043977307709222,
+  "average_words_per_page": 478.42857142857144,
+  "normalization_stats": {
+    "total_texts": 14,
+    "total_original_length": 45478,
+    "total_normalized_length": 45678,
+    "compression_ratio": 1.0043977307709222,
+    "total_words": 6698,
+    "total_estimated_tokens": 8701,
+    "average_words_per_text": 478.42857142857144,
+    "transformation_counts": {
+      "basic_cleaning": 14,
+      "remove_headers_footers": 14,
+      "fix_word_spacing": 14,
+      "normalize_whitespace": 14,
+      "preserve_structure": 14,
+      "final_cleanup": 14
+    }
+  }
+}
