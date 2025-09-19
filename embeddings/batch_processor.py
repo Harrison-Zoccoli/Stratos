@@ -38,54 +38,42 @@ class BatchProcessor:
         print(f"Created {len(batches)} batches of up to {EmbeddingConfig.BATCH_SIZE} chunks each")
         return batches
     
-    def process_batch(self, batch: List[Dict[str, Any]], batch_num: int, total_batches: int) -> Tuple[List[Dict[str, Any]], bool]:
+    def process_batch(self, batch_metadata: List[Dict[str, Any]], batch_texts: List[str], batch_num: int, total_batches: int) -> Tuple[List[Dict[str, Any]], bool]:
         """
         Process a single batch of chunks.
         
         Args:
-            batch: List of chunk dictionaries
+            batch_metadata: List of chunk metadata dictionaries
+            batch_texts: List of corresponding chunk texts
             batch_num: Current batch number (1-based)
             total_batches: Total number of batches
             
         Returns:
             Tuple of (processed_chunks, success_flag)
         """
-        print(f"Processing batch {batch_num}/{total_batches} ({len(batch)} chunks)...")
+        print(f"Processing batch {batch_num}/{total_batches} ({len(batch_metadata)} chunks)...")
         
         try:
-            # Extract text from chunks - need to get the actual chunk text
-            # The chunk metadata has the chunk info, but we need the actual text
-            # Let me check what fields are available
-            print(f"Sample chunk keys: {list(batch[0].keys()) if batch else 'No chunks'}")
-            
-            # For now, let's assume we need to get the text from somewhere else
-            # This is the issue - we need the actual chunk text, not just metadata
-            texts = []
-            for chunk in batch:
-                # We need to figure out how to get the actual text
-                # The chunk metadata doesn't contain the text itself
-                texts.append("PLACEHOLDER_TEXT")  # This won't work
-            
-            # Make API call
+            # Use the actual chunk texts
             response = self.client.embeddings.create(
-                input=texts,
+                input=batch_texts,
                 model=self.model_name
             )
             
             # Process response
             processed_chunks = []
-            for i, chunk in enumerate(batch):
+            for i, chunk_metadata in enumerate(batch_metadata):
                 embedding = response.data[i].embedding
                 
                 processed_chunk = {
-                    'chunk_id': chunk['chunk_id'],
-                    'chunk_index': chunk['chunk_index'],
-                    'source_page': chunk['source_page'],
-                    'start_position': chunk['start_position'],
-                    'end_position': chunk['end_position'],
-                    'text': chunk.get('text', ''),  # This might not exist
-                    'text_length': chunk['text_length'],
-                    'token_count': chunk['token_count'],
+                    'chunk_id': chunk_metadata['chunk_id'],
+                    'chunk_index': chunk_metadata['chunk_index'],
+                    'source_page': chunk_metadata['source_page'],
+                    'start_position': chunk_metadata['start_position'],
+                    'end_position': chunk_metadata['end_position'],
+                    'text': batch_texts[i],  # Use the actual chunk text
+                    'text_length': chunk_metadata['text_length'],
+                    'token_count': chunk_metadata['token_count'],
                     'embedding': embedding,
                     'embedding_dimension': len(embedding)
                 }
@@ -98,21 +86,33 @@ class BatchProcessor:
             print(f"Batch {batch_num} failed: {e}")
             return [], False
     
-    def process_all_batches(self, chunks: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def process_all_batches(self, chunks_metadata: List[Dict[str, Any]], chunks_texts: List[str]) -> List[Dict[str, Any]]:
         """
         Process all chunks in batches.
         
         Args:
-            chunks: List of chunk dictionaries
+            chunks_metadata: List of chunk metadata dictionaries
+            chunks_texts: List of corresponding chunk texts
             
         Returns:
             List of processed chunks with embeddings
         """
-        batches = self.create_batches(chunks)
+        # Create batches for both metadata and texts
+        batches_metadata = []
+        batches_texts = []
+        
+        for i in range(0, len(chunks_metadata), EmbeddingConfig.BATCH_SIZE):
+            batch_metadata = chunks_metadata[i:i + EmbeddingConfig.BATCH_SIZE]
+            batch_texts = chunks_texts[i:i + EmbeddingConfig.BATCH_SIZE]
+            batches_metadata.append(batch_metadata)
+            batches_texts.append(batch_texts)
+        
+        print(f"Created {len(batches_metadata)} batches of up to {EmbeddingConfig.BATCH_SIZE} chunks each")
+        
         all_processed_chunks = []
         
-        for i, batch in enumerate(batches, 1):
-            processed_chunks, success = self.process_batch(batch, i, len(batches))
+        for i, (batch_metadata, batch_texts) in enumerate(zip(batches_metadata, batches_texts), 1):
+            processed_chunks, success = self.process_batch(batch_metadata, batch_texts, i, len(batches_metadata))
             
             if success:
                 all_processed_chunks.extend(processed_chunks)
@@ -120,8 +120,8 @@ class BatchProcessor:
                 print(f"Skipping failed batch {i}")
             
             # Add delay between batches
-            if i < len(batches):
+            if i < len(batches_metadata):
                 time.sleep(EmbeddingConfig.BATCH_DELAY)
         
-        print(f"Processing complete: {len(all_processed_chunks)}/{len(chunks)} chunks processed successfully")
+        print(f"Processing complete: {len(all_processed_chunks)}/{len(chunks_metadata)} chunks processed successfully")
         return all_processed_chunks 

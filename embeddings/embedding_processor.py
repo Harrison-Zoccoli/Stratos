@@ -14,12 +14,13 @@ class EmbeddingProcessor:
         self.batch_processor = BatchProcessor()
         self.storage_handler = StorageHandler()
     
-    def process_pdf_embeddings(self, chunks_metadata: List[Dict[str, Any]], pdf_name: str) -> Dict[str, Any]:
+    def process_pdf_embeddings(self, chunks_metadata: List[Dict[str, Any]], chunks_texts: List[str], pdf_name: str) -> Dict[str, Any]:
         """
         Process all chunks for a PDF into embeddings.
         
         Args:
-            chunks_metadata: List of chunk dictionaries (from chunking results)
+            chunks_metadata: List of chunk metadata dictionaries
+            chunks_texts: List of corresponding chunk texts
             pdf_name: Name of the PDF (without extension)
             
         Returns:
@@ -28,12 +29,12 @@ class EmbeddingProcessor:
         print(f"Starting embedding processing for: {pdf_name}")
         print(f"Batch size: {EmbeddingConfig.BATCH_SIZE}")
         
-        if not chunks_metadata:
+        if not chunks_metadata or not chunks_texts:
             print("No chunks found to process")
             return {}
         
         # Process chunks in batches
-        processed_chunks = self.batch_processor.process_all_batches(chunks_metadata)
+        processed_chunks = self.batch_processor.process_all_batches(chunks_metadata, chunks_texts)
         
         if not processed_chunks:
             print("No chunks were successfully processed")

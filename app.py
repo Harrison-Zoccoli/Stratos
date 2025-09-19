@@ -51,7 +51,9 @@ class PDFProcessor:
         pdf_name = Path(pdf_path).stem
         
         embedding_result = self.embedding_processor.process_pdf_embeddings(
-            chunking_results['metadata'], pdf_name
+            chunking_results['metadata'], 
+            chunking_results['chunks'], 
+            pdf_name
         )
         
         print(f"Processing complete. Processed {len(normalized_pages)} pages")
