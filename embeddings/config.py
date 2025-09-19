@@ -12,6 +12,7 @@ class EmbeddingConfig:
     BATCH_DELAY = 0.1  # Delay between batches in seconds might not be needed
     
     # Output settings
+    SAVE_EMBEDDINGS = True  # requires flag in app to be on to be on
     OUTPUT_JSON = True  # for logging/testing
     OUTPUT_PARQUET = True  #for acc coding
     
@@ -26,4 +27,10 @@ class EmbeddingConfig:
     def update_batch_size(cls, new_size: int):
         """Update batch size for different use cases."""
         cls.BATCH_SIZE = new_size
-        print(f"Batch size updated to: {new_size}") 
+        print(f"Batch size updated to: {new_size}")
+    
+    @classmethod
+    def set_save_embeddings(cls, save: bool):
+        """Enable or disable saving embedding files."""
+        cls.SAVE_EMBEDDINGS = save
+        print(f"Embedding file saving {'enabled' if save else 'disabled'}") 

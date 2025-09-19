@@ -28,6 +28,7 @@ class EmbeddingProcessor:
         """
         print(f"Starting embedding processing for: {pdf_name}")
         print(f"Batch size: {EmbeddingConfig.BATCH_SIZE}")
+        print(f"Save embeddings: {'Yes' if EmbeddingConfig.SAVE_EMBEDDINGS else 'No'}")
         
         if not chunks_metadata or not chunks_texts:
             print("No chunks found to process")
@@ -43,7 +44,7 @@ class EmbeddingProcessor:
         # Generate summary
         summary = self.storage_handler.get_embeddings_summary(processed_chunks)
         
-        # Save embeddings
+        # Save embeddings (if enabled)
         saved_files = self.storage_handler.save_embeddings(processed_chunks, pdf_name, summary)
         
         print(f"Embedding processing complete for {pdf_name}")

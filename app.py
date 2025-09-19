@@ -8,6 +8,7 @@ from input.normalizer import TextNormalizer
 from input.summary_generator import SummaryGenerator
 from chunking.chunker import Chunker
 from embeddings.embedding_processor import EmbeddingProcessor
+from embeddings.config import EmbeddingConfig
 
 class PDFProcessor:
     """
@@ -15,12 +16,16 @@ class PDFProcessor:
     Main entry point function first step
     """
     
-    def __init__(self):
+    def __init__(self, save_files: bool = True):
         self.pdf_extractor = PDFExtractor()
         self.normalizer = TextNormalizer()
         self.summary_generator = SummaryGenerator()
         self.chunker = Chunker()
         self.embedding_processor = EmbeddingProcessor()
+        self.save_files = save_files
+        
+        # Configure embedding saving based on main flag
+        EmbeddingConfig.set_save_embeddings(save_files)
     
     def process_pdf(self, pdf_path: str) -> Dict[str, Any]:
         """
@@ -30,6 +35,7 @@ class PDFProcessor:
             raise FileNotFoundError(f"PDF file not found: {pdf_path}")
         
         print(f"Processing PDF: {pdf_path}")
+        print(f"File saving: {'Enabled' if self.save_files else 'Disabled'}")
         
         # Extract text from PDF
         raw_pages = self.pdf_extractor.extract_text_from_pdf(pdf_path)
@@ -100,6 +106,10 @@ class PDFProcessor:
         """
         Save the essential files: normalized text, summary, chunked text, and chunk metadata.
         """
+        if not self.save_files:
+            print("File saving is disabled - skipping file output")
+            return
+        
         output_path = Path(output_dir)
         pdf_name = Path(results['pdf_path']).stem
         
@@ -145,10 +155,11 @@ def main():
     """
     # Configuration
     pdf_path = "exampleStarbucks.pdf"
+    save_files = True  # Set to False to disable all file saving
     
     try:
-        # Initialize processor
-        processor = PDFProcessor()
+        # Initialize processor with save flag
+        processor = PDFProcessor(save_files=save_files)
         
         # Process PDF
         results = processor.process_pdf(pdf_path)
@@ -156,7 +167,7 @@ def main():
         # Print summary using the helper
         processor.summary_generator.print_summary(results)
         
-        # Save results
+        # Save results (if enabled)
         processor.save_results(results)
         
         # Show preview using the helper

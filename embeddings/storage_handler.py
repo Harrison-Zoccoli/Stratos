@@ -11,7 +11,8 @@ class StorageHandler:
     
     def __init__(self):
         self.embeddings_folder = Path(EmbeddingConfig.EMBEDDINGS_FOLDER)
-        self.embeddings_folder.mkdir(exist_ok=True)
+        if EmbeddingConfig.SAVE_EMBEDDINGS:
+            self.embeddings_folder.mkdir(exist_ok=True)
     
     def save_embeddings(self, processed_chunks: List[Dict[str, Any]], pdf_name: str, summary: Dict[str, Any]) -> Dict[str, str]:
         """
@@ -26,6 +27,11 @@ class StorageHandler:
             Dictionary with file paths for saved files
         """
         saved_files = {}
+        
+        # Check if saving is enabled
+        if not EmbeddingConfig.SAVE_EMBEDDINGS:
+            print("Embedding file saving is disabled - skipping file output")
+            return saved_files
         
         # Prepare data for saving
         embeddings_data = {
